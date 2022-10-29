@@ -9,7 +9,7 @@ import (
 )
 
 func Zipread() {
-	zipReader, err := zip.OpenReader("testFolder.zip")
+	zipReader, err := zip.OpenReader("valid_plugin3.zip")
 	if err != nil {
 		log.Fatal(err)
 	}
