@@ -9,12 +9,15 @@ import (
 )
 
 func Zipread() {
-	zipReader, err := zip.OpenReader("valid_plugin3.zip")
+	filename := "valid_plugin3.zip"
+	zipReader, err := zip.OpenReader(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer zipReader.Close()
 
+	//extract file (copy file from zip to local directory)
+	targetDir := filepath.Join("./", filepath.Base(filename)[:len(filename)-len(filepath.Ext(filename))])
 	for _, file := range zipReader.Reader.File {
 		// open file inside zip file just like a normal file
 		zippedFile, err := file.Open()
@@ -23,8 +26,12 @@ func Zipread() {
 		}
 		defer zippedFile.Close()
 
-		//extract file (copy file from zip to local directory)
-		targetDir := "./"
+		if _, err := os.Stat(targetDir); err != nil {
+			if os.IsNotExist(err) {
+				os.MkdirAll(targetDir, os.ModePerm)
+			}
+		}
+
 		exactractedFilePath := filepath.Join(targetDir, file.Name)
 
 		if file.FileInfo().IsDir() {
