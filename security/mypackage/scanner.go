@@ -16,8 +16,6 @@ func scanner() {
 	}
 	defer file.Close()
 
-	// byteSlice := make([]byte, 9)
-
 	// pass a file to NewReader
 	scanner := bufio.NewScanner(file)
 	scanner.Split(bufio.ScanLines)

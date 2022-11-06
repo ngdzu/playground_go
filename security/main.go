@@ -3,14 +3,18 @@ package main
 import "example/mypackage"
 
 func main() {
-	// readfull()
+	mypackage.Readfull()
 	// readatleast()
 	// bufferedreader()
 	// scanner()
 	// zipcreate()
-	mypackage.Zipread()
+	// mypackage.Zipread()
 	// gzipcompress()
 	// mypackage.Gzipuncompress()
 	// usingflag()
 	// mypackage.SymbolicLink()
+	// mypackage.HashFile()
+	// mypackage.HashLargeFile()
+	// mypackage.HashingPassword()
+	// mypackage.CryptoRandom()
 }
