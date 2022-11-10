@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"sample/dt"
+
+	"sample.dirtree/dt"
 )
 
 func main() {

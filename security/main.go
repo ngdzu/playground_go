@@ -1,6 +1,6 @@
 package main
 
-import "sample/security/mypackage"
+import "sample.security/mypackage"
 
 func main() {
 	// mypackage.Readfull()

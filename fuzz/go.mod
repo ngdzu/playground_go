@@ -1,3 +1,3 @@
-module example/fuzz
+module sample.fuzz
 
-go 1.18
+go 1.19
