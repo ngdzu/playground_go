@@ -1,9 +1,9 @@
 package main
 
-import "example/mypackage"
+import "sample/security/mypackage"
 
 func main() {
-	mypackage.Readfull()
+	// mypackage.Readfull()
 	// readatleast()
 	// bufferedreader()
 	// scanner()
@@ -16,5 +16,5 @@ func main() {
 	// mypackage.HashFile()
 	// mypackage.HashLargeFile()
 	// mypackage.HashingPassword()
-	// mypackage.CryptoRandom()
+	mypackage.CryptoRandom()
 }

@@ -1,0 +1,9 @@
+go 1.19
+
+use (
+	./cgo
+	./directory_tree
+	./fuzz
+	./security
+	./zip
+)

@@ -5,16 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch avid-api-gateway",
+            "name": "Launch Package",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}",
-            "args": [
-                "--backend_addr=localhost:31555",
-                "--run_tls_server=false",
-                "--allow_all_origins"
-            ]
+            "program": "main.go"
         }
     ]
 }
