@@ -12,9 +12,11 @@ func main() {
 	// gzipcompress()
 	// mypackage.Gzipuncompress()
 	// usingflag()
+	// mypackage.Which()
 	// mypackage.SymbolicLink()
 	// mypackage.HashFile()
 	// mypackage.HashLargeFile()
 	// mypackage.HashingPassword()
-	mypackage.CryptoRandom()
+	// mypackage.CryptoRandom()
+	mypackage.GenRSA()
 }

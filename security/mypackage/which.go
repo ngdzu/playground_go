@@ -2,15 +2,16 @@ package mypackage
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 )
 
-func which() {
-	file := "which"
+func Which() {
+	file := "ls"
 	path := os.Getenv("PATH")
 	var foundit bool = false
 	for _, directory := range strings.Split(path, ":") {
-		fullpath := directory + file
+		fullpath := filepath.Join(directory, file)
 		fileinfo, err := os.Lstat(fullpath)
 		if err == nil {
 			mode := fileinfo.Mode()
