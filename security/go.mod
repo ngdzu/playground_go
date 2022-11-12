@@ -1,3 +1,3 @@
-module sample.security
+module sample/security
 
 go 1.19

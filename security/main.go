@@ -1,6 +1,6 @@
 package main
 
-import "sample.security/mypackage"
+import "sample/security/mypackage"
 
 func main() {
 	// mypackage.Readfull()
@@ -18,5 +18,9 @@ func main() {
 	// mypackage.HashLargeFile()
 	// mypackage.HashingPassword()
 	// mypackage.CryptoRandom()
-	mypackage.GenRSA()
+	// mypackage.GenRSA_demo()
+	// mypackage.SignMessage_demo()
+	// mypackage.GenerateCertificate_demo("testdata/private.pem", true)
+	// mypackage.GenerateCertificate_demo("testdata/private.pem", false)
+	mypackage.CertificateSigningRequest_demo()
 }

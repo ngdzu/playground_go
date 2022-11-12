@@ -5,21 +5,14 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 )
 
-const (
-	private_key_file_name = "keys/private.pem"
-	public_key_file_name  = "keys/public.pem"
-	key_size              = 2048
-)
-
 // encode the private key as PEM file
 // PEM is base64 encoding of a key
-func getPrivatePemFromKey(privateKey *rsa.PrivateKey) *pem.Block {
+func GetPrivatePemFromKey(privateKey *rsa.PrivateKey) *pem.Block {
 	encodedPrivateKey := x509.MarshalPKCS1PrivateKey(privateKey)
 	privatePem := &pem.Block{
 		Type: "RSA PRIVATE KEY", Bytes: encodedPrivateKey,
@@ -27,7 +20,7 @@ func getPrivatePemFromKey(privateKey *rsa.PrivateKey) *pem.Block {
 	return privatePem
 }
 
-func generatePublicPemFromKey(publicKey rsa.PublicKey) *pem.Block {
+func GeneratePublicPemFromKey(publicKey rsa.PublicKey) *pem.Block {
 	encodedPublicKey, err := x509.MarshalPKIXPublicKey(&publicKey) // NOTE must pass a pointer to public key
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +32,7 @@ func generatePublicPemFromKey(publicKey rsa.PublicKey) *pem.Block {
 	return publicPem
 }
 
-func savePemToFile(pemBlock *pem.Block, filename string) {
+func SavePemToFile(pemBlock *pem.Block, filename string) {
 
 	parentPath := filepath.Dir(filename)
 	if len(parentPath) > 0 {
@@ -62,11 +55,7 @@ func savePemToFile(pemBlock *pem.Block, filename string) {
 
 }
 
-// # Generate the private key
-// openssl genrsa -out priv.pem 2048
-// # Extract the public key from the private key
-// openssl rsa -in priv.pem -pubout -out public.pem
-func GenRSA() {
+func GenerateRSAKeyPair(privateKeyFilename, publicKeyFilename string) {
 	// generate private key
 	privateKey, err := rsa.GenerateKey(rand.Reader, key_size)
 	if err != nil {
@@ -74,12 +63,19 @@ func GenRSA() {
 	}
 
 	// Encode keys to PEM format
-	privatePem := getPrivatePemFromKey(privateKey)
-	publicPem := generatePublicPemFromKey(privateKey.PublicKey)
+	privatePem := GetPrivatePemFromKey(privateKey)
+	publicPem := GeneratePublicPemFromKey(privateKey.PublicKey)
 
 	// save PEM outputs to files
-	savePemToFile(privatePem, private_key_file_name)
-	savePemToFile(publicPem, public_key_file_name)
 
-	fmt.Printf("public key content:\n%s", pem.EncodeToMemory(publicPem))
+	SavePemToFile(privatePem, privateKeyFilename)
+	SavePemToFile(publicPem, publicKeyFilename)
+}
+
+// # Generate the private key
+// openssl genrsa -out priv.pem 2048
+// # Extract the public key from the private key
+// openssl rsa -in priv.pem -pubout -out public.pem
+func GenRSA_demo() {
+	GenerateRSAKeyPair("out/private.pem", "out/public.pem")
 }

@@ -9,7 +9,7 @@ import (
 
 // first call Scan()
 // then call Tex() or Byte() to get the string or bytes just scanned
-func scanner() {
+func Scanner_demo() {
 	file, err := os.Open("test.txt")
 	if err != nil {
 		log.Fatal(err)
