@@ -5,6 +5,8 @@ use (
 	./directory_tree
 	./fuzz
 	./security
+	./tls_client
+	./tls_server
 	./wsmain
 	./zip
 )

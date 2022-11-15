@@ -10,6 +10,20 @@
             "request": "launch",
             "mode": "auto",
             "program": "./security/main.go"
+        },
+        {
+            "name": "Launch TLS server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "./tls_server/main.go"
+        },
+        {
+            "name": "Launch TLS client",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "./tls_client/main.go"
         }
     ]
 }

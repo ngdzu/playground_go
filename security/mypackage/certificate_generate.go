@@ -63,7 +63,7 @@ func setupCertificateTemplate(isCA bool) x509.Certificate {
 	return certTemplate
 }
 
-func writeCertToPemFile(outputFilename string, derBytes []byte) {
+func WriteCertToPemFile(outputFilename string, derBytes []byte) error {
 	parentDir := filepath.Dir(outputFilename)
 	if _, err := os.Lstat(parentDir); os.IsNotExist(err) {
 		if err = os.MkdirAll(parentDir, os.ModePerm); err != nil {
@@ -81,15 +81,16 @@ func writeCertToPemFile(outputFilename string, derBytes []byte) {
 		Type:  "CERTIFICATE",
 		Bytes: derBytes,
 	}
-	err = pem.Encode(certOutFile, block)
-	if err != nil {
-		log.Fatal(err)
-	}
 
+	return WritePemBlockToFile(block, outputFilename)
+}
+
+func CreateCaCertificate(inputPrivateKeyPath string, outputCertificateFilename string) {
+	GenerateCertificate(inputPrivateKeyPath, true, outputCertificateFilename)
 }
 
 // Create a self-sign certificate
-func GenerateCertificate_demo(inputPrivateKeyPath string, isCA bool) {
+func GenerateCertificate(inputPrivateKeyPath string, isCA bool, outputCertificateFilename string) {
 	// Private key of signer - self signed means signer==signee
 	privateKey := LoadPrivateKeyFromPemFile(inputPrivateKeyPath)
 
@@ -111,11 +112,13 @@ func GenerateCertificate_demo(inputPrivateKeyPath string, isCA bool) {
 		log.Fatal(err)
 	}
 
-	if isCA {
-		writeCertToPemFile("out/cacert.pem", certPem)
-	} else {
-		writeCertToPemFile("out/cert.pem", certPem)
-	}
+	WriteCertToPemFile(outputCertificateFilename, certPem)
 
-	fmt.Print("Successfully create a certificate.")
+	// if isCA {
+	// 	WriteCertToPemFile("out/cacert.pem", certPem)
+	// } else {
+	// 	WriteCertToPemFile("out/cert.pem", certPem)
+	// }
+
+	fmt.Println("Successfully create a certificate.")
 }

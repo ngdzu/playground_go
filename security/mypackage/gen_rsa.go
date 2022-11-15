@@ -55,6 +55,10 @@ func SavePemToFile(pemBlock *pem.Block, filename string) {
 
 }
 
+// # Generate the private key
+// openssl genrsa -out priv.pem 2048
+// # Extract the public key from the private key
+// openssl rsa -in priv.pem -pubout -out public.pem
 func GenerateRSAKeyPair(privateKeyFilename, publicKeyFilename string) {
 	// generate private key
 	privateKey, err := rsa.GenerateKey(rand.Reader, key_size)
@@ -70,12 +74,4 @@ func GenerateRSAKeyPair(privateKeyFilename, publicKeyFilename string) {
 
 	SavePemToFile(privatePem, privateKeyFilename)
 	SavePemToFile(publicPem, publicKeyFilename)
-}
-
-// # Generate the private key
-// openssl genrsa -out priv.pem 2048
-// # Extract the public key from the private key
-// openssl rsa -in priv.pem -pubout -out public.pem
-func GenRSA_demo() {
-	GenerateRSAKeyPair("out/private.pem", "out/public.pem")
 }

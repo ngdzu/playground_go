@@ -46,8 +46,19 @@ func LoadPrivateKeyFromPemFile(privateKeyFilePath string) *rsa.PrivateKey {
 	if block == nil || block.Type != "RSA PRIVATE KEY" {
 		log.Fatal("Unable to load a valid private key.")
 	}
+	der := block.Bytes
 
-	privateKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	// // If the private key is encrypted with a password
+	// encrypted := false
+	// password := []byte("ca private key password")
+	// if encrypted {
+	// 	der, err = x509.DecryptPEMBlock(block, password)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
+
+	privateKey, err := x509.ParsePKCS1PrivateKey(der)
 	if err != nil {
 		log.Fatal("error loading private key", err)
 	}
@@ -55,7 +66,7 @@ func LoadPrivateKeyFromPemFile(privateKeyFilePath string) *rsa.PrivateKey {
 	return privateKey
 }
 
-func loadPublicKeyFromPemFile(publicKeyFilename string) *rsa.PublicKey {
+func LoadPublicKeyFromPemFile(publicKeyFilename string) *rsa.PublicKey {
 	fileData, err := os.ReadFile(publicKeyFilename)
 	if err != nil {
 		log.Fatal("error reading file:", err)

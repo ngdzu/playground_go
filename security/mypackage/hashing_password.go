@@ -17,7 +17,7 @@ import (
 // or in a secure configuration file.
 // This is an arbitrary key that should only be used
 // for example purposes.
-var secretKey = "neictr98y85klfgneghre"
+const secretKey = "neictr98y85klfgneghre"
 
 func generateSalt() string {
 	randomByte := make([]byte, 32)
@@ -33,17 +33,17 @@ func generateSalt() string {
 // Use hmac to create a new hashing based on sha256
 // Append salt to the password
 // Use the newly created hash to hash the password
-func hashPassword(plainText string, salt string) string {
+func HashPassword(plainText string, salt string) string {
 	hash := hmac.New(sha256.New, []byte(secretKey))
 	io.WriteString(hash, plainText+salt) // append salt to the end of password
 	hashValue := hash.Sum(nil)
 	return hex.EncodeToString(hashValue)
 }
 
-func HashingPassword() {
+func HashingPassword_demo() {
 	salt := generateSalt()
 	password := "i don't knowit&#"
-	hashedPass := hashPassword(password, salt)
+	hashedPass := HashPassword(password, salt)
 
 	fmt.Printf("password: %s\n", password)
 	fmt.Printf("salt: %s\n", salt)
@@ -54,7 +54,7 @@ func HashingPassword() {
 
 	// different salt -> different hash
 	salt = generateSalt()
-	hashedPass = hashPassword(password, salt)
+	hashedPass = HashPassword(password, salt)
 
 	fmt.Printf("password: %s\n", password)
 	fmt.Printf("different salt: %s\n", salt)

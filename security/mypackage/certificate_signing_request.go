@@ -25,17 +25,17 @@ func WritePemBlockToFile(block *pem.Block, filePath string) error {
 	return pem.Encode(file, block)
 }
 
-func saveCSRToPemFile(csr []byte, filePath string) {
+func WriteCSRToPemFile(csr []byte, filePath string) error {
 	block := &pem.Block{
 		Type:  "CERTIFICATE REQUEST",
 		Bytes: csr,
 	}
 
-	WritePemBlockToFile(block, filePath)
+	return WritePemBlockToFile(block, filePath)
 }
 
-func CertificateSigningRequest_demo() {
-	inputPrivateKeyPath := "testdata/private_key_for_csr.pem"
+func CreateCertificateSigningRequest(inputPrivateKeyPath, outputCsrFilename string) {
+
 	privateKey := LoadPrivateKeyFromPemFile(inputPrivateKeyPath)
 	nameInfo := pkix.Name{
 		Organization:       []string{"My Organization"},
@@ -66,6 +66,9 @@ func CertificateSigningRequest_demo() {
 		log.Fatal("Error creating certificate signing request. ", err)
 	}
 
-	saveCSRToPemFile(csr, "out/csr.pem")
-	fmt.Print("Successfully create CSR.")
+	if WriteCSRToPemFile(csr, outputCsrFilename) != nil {
+		fmt.Println("Fail to create CSR")
+	} else {
+		fmt.Println("Successfully create CSR.")
+	}
 }
