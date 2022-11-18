@@ -1,4 +1,4 @@
-package mypackage
+package security
 
 import (
 	"crypto/md5"
@@ -9,9 +9,9 @@ import (
 )
 
 // We don't read the file all at once since the file is large
-// - We create a reader from the file. 
-// - THen create a hasher as 
-// - Finally, copy the file reader to the hash writer. 
+// - We create a reader from the file.
+// - THen create a hasher as
+// - Finally, copy the file reader to the hash writer.
 func HashLargeFile() {
 	f, err := os.Open("testdata/large.txt")
 	if err != nil {

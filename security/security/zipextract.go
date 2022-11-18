@@ -1,4 +1,4 @@
-package mypackage
+package security
 
 // func zipextract() {
 // 	zipReader, err := zip.OpenReader("test.zip")
