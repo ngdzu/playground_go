@@ -7,8 +7,8 @@ import (
 	"os"
 )
 
-func bufferedreader() {
-	file, err := os.Open("test.txt")
+func BufferedreaderDemo() {
+	file, err := os.Open("testdata/test.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,20 +26,22 @@ func bufferedreader() {
 	fmt.Printf("read %d bytes\n", bytesRead)
 	fmt.Printf("read contents: %s\n", byteSlice)
 
+	// Read a single byte
 	b, err := bufferedReader.ReadByte()
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("read 1 byte: %c\n", b)
 
-	// read unitl delimiter
-	byteSlice, err = bufferedReader.ReadBytes(',')
+	// read until delimiter
+	byteSlice, err = bufferedReader.ReadBytes('\n')
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Printf("read until endline: %s\n", byteSlice)
 
+	// Read until '.', returns a string
 	stringRead, err := bufferedReader.ReadString('.')
 	if err != nil {
 		log.Fatal(err)
